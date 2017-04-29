@@ -1,0 +1,157 @@
+html
+	head
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		<script src="views/js/jquery.js"></script>
+		<script src="views/js/materialize.js"></script>
+		<script src="views/js/wickedpicker.js"></script>
+		<script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.28.5/js/jquery.tablesorter.js"></script>
+		<link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+
+		style
+			include assets/css/materialize.css
+
+	title= title
+	body
+		div(class="container")
+			
+			//-var ob = JSON.parse(message)
+			//a(class="btn-floating btn-large waves-effect waves-light red col s12"  href="#modal1")
+			//	i(class="material-icons") add
+			div(class="row")
+				a(class="modal-trigger waves-effect waves-light btn col s12" href="#modal2") Prześlij plik z wynikami
+			div(class="row")
+				a(class="modal-trigger waves-effect waves-light btn col s12" href="#addStationModal") Dodaj nowe stanowisko pomiarowe
+			div(class="row")
+				a(class="modal-trigger waves-effect waves-light btn col s12" id="addSensorModalBtn" href="#addSensorModal") Dodaj nowy czujnik
+			div(class="row")
+				a(class="modal-trigger waves-effect waves-light btn col s12" href="#addSampleModal") Dodaj wynik pomiaru
+			
+
+			div(class="input-field col s12")
+				select(id= "TableOptionsSelct")
+					option(value="" disabled selected) Wybierz 
+					option(value="stations") Stanowiska pomiarowe 
+					option(value="sensors") Czujniki
+					option(value="samples") Wyniki
+
+			div(class="input-field col s12" id="sensorStationDropdownArea")
+				select(id= "sensorsStation")
+					option(value="" disabled selected) Wybierz 
+
+
+			div(class="result")
+
+
+			div(id="addStationModal" class="modal modal-fixed-footer")
+				div(class="modal-content")
+					h4 Dodaj stanowisko pomiarowe
+					
+					div(class="input-field col s12")
+						input(type="text" class="validate" id="addStationModalStationName")
+						label(for="addStationModalStationName") Nazwa stanowiska
+
+					div(class="input-field col s12")
+						input(id="addStationModalStationNumber" type="number" )
+						label(for="addStationModalStationNumber") Numer stanowiska
+					
+					div(class="input-field col s12")
+						textarea(id="addStationModalStationDescription" class="materialize-textarea")
+						label(for="addStationModalStationDescription") Opis stanowiska
+					
+				div(class="modal-footer")
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="addStationBtn") Dodaj
+
+
+			div(id="addSensorModal" class="modal modal-fixed-footer")
+				div(class="modal-content")
+					h4 Dodaj czujnik pomiarowy
+					
+					div(class="input-field col s12")
+						select(id= "StationSelectOnSensorModal")
+							option(value="" disabled selected) Wybierz stanowisko 
+
+					div(class="input-field col s12")
+						input(type="text" class="validate" id="addSensorModalSensorName")
+						label(for="addSensorModalSensorName") Nazwa czujnika
+
+					div(class="input-field col s12")
+						input(type="number"  id="addSensorModalSensorNumber")
+						label(for="addSensorModalSensorNumber") Numer czujnika
+					
+
+					
+
+					
+					
+					div(class="input-field col s12")
+						textarea(id="addSensorModalSensorDesc" class="materialize-textarea")
+						label(for="addSensorModalSensorDesc") Opis czujnika
+					
+				div(class="modal-footer")
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="addSensorBtn") Dodaj
+
+			div(id="addSampleModal" class="modal modal-fixed-footer")
+				div(class="modal-content")
+					h4 Dodaj wynik pomiaru
+					
+					div(class="input-field col s12")
+						input(type="number" class="validate" id="addSampleModalStationNumber")
+						label(for="addSensorModalSensorName") Numer stanowiska
+
+					div(class="input-field col s12")
+						input(type="number" class="validate" id="addSampleModalSensorNumber")
+						label(for="addSensorModalSensorNumber") Numer czujnika
+
+					div(class="input-field col s12")
+						input(id="addSampleModalValue" type="number" step="any" class="validate")
+						label(for="addSensorModalStationNumber") Wartość
+					
+				div(class="modal-footer")
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="addSampleBtn") Dodaj
+
+			div(id="modal1" class="modal modal-fixed-footer")
+				div(class="modal-content")
+					h4 Dodaj próbkę
+					
+					div(class="input-field col s12")
+						input(type="date" class="datepicker" id="spampleDate")
+						label(for="spampleDate") Data
+
+					div(class="input-field col s12")
+						input(id="sampleValue" type="number" step="any"  class="validate")
+						label(for="sampleValue") Wartość próbki
+					
+					div(class="input-field col s12")
+						input(id="sensorNumber" type="number" class="validate")
+						label(for="sensorNumber") Numer czujnika
+					
+					div(class="input-field col s12")
+						input(id="stationNumber" type="number" step="any"  class="validate")
+						label(for="stationNumber") Numer stanowsika
+
+				div(class="modal-footer")
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="saveSampleBtn") Dodaj
+
+
+			div(id="modal2" class="modal modal-fixed-footer")
+				div(class="modal-content")
+					h4 Dodaj plik
+					
+					div(class="file-field input-field col s12")
+						div(class="btn")
+							span File
+							input(type="file" id="importFileInput" accept=".csv")
+						div(class="file-path-wrapper")
+							input(class="file-path validate" type="text")
+					div(id="importPreview")
+				div(class="modal-footer")
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="importFileBtn") Dodaj
+					
+	script
+		include assets/js/script.js
+		include assets/js/stations.js
+		include assets/js/utils.js
+		include assets/js/sensors.js
+
+	

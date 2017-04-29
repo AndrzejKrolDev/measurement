@@ -1,0 +1,20 @@
+{"samples":[
+  {
+    "timestamp": 1,
+    "station": 1,
+    "sensor": "quidem molestiae enim",
+	"value": 321
+  },
+  {
+    "timestamp": 1,
+    "station": 1,
+    "sensor": "quidem molestiae enim",
+	"value": 321
+  },
+  {
+    "timestamp": 1,
+    "station": 1,
+    "sensor": "quidem molestiae enim",
+	"value": 321
+  }
+  ]}
