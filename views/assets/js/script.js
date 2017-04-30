@@ -16,12 +16,12 @@ $(document).ready(function() {
 
 
     $('#addSensorBtn').click(function() {
-        var body = { name: $("#addSensorModalSensorName").val(), number: $("#addSensorModalSensorNumber").val(), description: $("#addSensorModalSensorDesc").val(), stationNumber: $("#StationSelect").val() };
+        var body = { name: $("#addSensorModalSensorName").val(), number: $("#addSensorModalSensorNumber").val(), description: $("#addSensorModalSensorDesc").val(), stationNumber: $("#StationSelectOnSensorModal").val() };
         $.post("sensor", body);
     })
 
     $("#addSensorModalSensorNumber").keyup(function() {
-        validateSensorNumber(this.value, $("#StationSelectOnSensorModal").val());
+        validateSensorNumber($("#StationSelectOnSensorModal").val(), this.value);
     });
 
     $('#addSensorModalBtn').click(function() {
@@ -32,6 +32,25 @@ $(document).ready(function() {
     $('#addSampleBtn').click(function() {
         var body = { stationNumber: $("#addSampleModalStationNumber").val(), sensorNumber: $("#addSampleModalSensorNumber").val(), sampleValue: $("#addSampleModalValue").val(), time: new Date().toISOString().slice(0, 19).replace('T', ' ') };
         $.post("sample", body);
+    })
+
+
+    $('#TableOptionsSelct').on('change', function() {
+        if (this.value == "stations") {
+            getStations(addStationsDataToTable, sortTable("#resultTable"));
+        }
+        if (this.value == "samples") {
+            getSamples();
+        }
+        if (this.value == "sensors") {
+            getSensors();
+            getStationNumberAndDescriptionTable();
+            $("#sensorStationDropdownArea").show();
+        }
+    })
+
+    $('#sensorsStation').on('change', function() {
+        getSensors(this.value);
     })
 
     function csvToHtmlTable(csvData) {
@@ -117,19 +136,7 @@ $(document).ready(function() {
 
 
 
-    $('#TableOptionsSelct').on('change', function() {
-        if (this.value == "stations") {
-            getStations(addStationsDataToTable, sortTable("#resultTable"));
-        }
-        if (this.value == "samples") {
-            getSamples();
-        }
-        if (this.value == "sensors") {
-            getSensors();
-            getStationNumberAndDescriptionTable();
-            $("#sensorStationDropdownArea").show();
-        }
-    })
+
     $("#importFileBtn").click(function() {
         postPreviewData();
     })

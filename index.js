@@ -29,27 +29,9 @@ var connection = mysql.createConnection({
 });
 
 
-app.get('/db', function(req, res) {
-
-    connection.query('SELECT * from samples AS solution', function(error, results, fields) {
-        if (error) throw error;
-        var objToJson = results;
-        var response = [];
-        for (var key in results) {
-            console.log(results[key]);
-            response.push(results[key]);
-        }
-        objToJson.response = response;
-        var finalresponse = JSON.stringify(objToJson);
-        res.render('index', { title: "", message: "{\"samples\":" + finalresponse + "}" })
-    });
-
-})
 
 app.get('/', function(req, res) {
-    fs.readFile(__dirname + "/" + "users.json", 'utf8', function(err, data) {
-        res.render('index', { title: "", message: data })
-    });
+    res.render('index', { title: "Pomiary PK"})
 })
 
 app.get('/listUsers', function(req, res) {
