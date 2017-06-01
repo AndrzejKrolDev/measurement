@@ -1,0 +1,20 @@
+html
+	head
+		<script src="views/js/lib/jquery.js"></script>
+		<script src="views/js/lib/materialize.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.28.5/js/jquery.tablesorter.js"></script>
+		<link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+		<link href="views/css/materialize.css" rel="stylesheet"/>
+
+
+	title= title
+	body
+		div.container
+			form(method='POST' action='/login')
+				div.form-group
+					label(for='email') Email
+					input.form-control(type='text' id='email' placeholder='email' name='email')
+				div.form-group
+					label(for='password') Password
+					input.form-control(type='password' id='password' placeholder='password' name='password')
+				button.btn.btn-primary(type='submit') Log in 

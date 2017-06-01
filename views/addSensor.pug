@@ -1,0 +1,23 @@
+extends layout
+block content	
+	h4 Dodaj czujnik pomiarowy		
+		div(class="input-field col s12")
+			select(id= "StationSelectOnSensorModal")
+				option(value="" disabled selected) Wybierz stanowisko 
+
+		div(class="input-field col s12")
+			input(type="text" class="validate" id="addSensorModalSensorName")
+			label(for="addSensorModalSensorName") Nazwa czujnika
+
+		div(class="input-field col s12")
+			input(type="number"  id="addSensorModalSensorNumber")
+			label(for="addSensorModalSensorNumber") Numer czujnika
+
+		div(class="input-field col s12")
+			input(type="text"  id="addStationModalStationDescription")
+			label(for="addStationModalStationDescription") Opis
+	btn(href="#!" class="btn" id="addSensorBtn") Dodaj
+
+
+block scripts
+	include assets/js/src/addSensor.js

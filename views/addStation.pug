@@ -1,0 +1,22 @@
+extends layout
+block content
+	h4 Dodaj stanowisko pomiarowe
+			
+			div(class="input-field col s12")
+				input(type="text" class="validate" id="addStationModalStationName")
+				label(for="addStationModalStationName") Nazwa stanowiska
+
+			div(class="input-field col s12")
+				input(id="addStationModalStationNumber" type="number" )
+				label(for="addStationModalStationNumber") Numer stanowiska
+			
+			div(class="input-field col s12")
+				textarea(id="addStationModalStationDescription" class="materialize-textarea")
+				label(for="addStationModalStationDescription") Opis stanowiska
+
+	div(class="progress")
+		div(class="indeterminate")
+
+	btn(href="#!" class="btn" id="addStationBtn") Dodaj
+block scripts
+	include assets/js/src/addStation.js

@@ -1,31 +1,18 @@
-html
-	head
-		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
-		<script src="views/js/jquery.js"></script>
-		<script src="views/js/materialize.js"></script>
-		<script src="views/js/wickedpicker.js"></script>
-		<script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.28.5/js/jquery.tablesorter.js"></script>
-		<link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
-
-		style
-			include assets/css/materialize.css
-
-	title= title
-	body
-		div(class="container")
+extends layout
+block content
+		
 			
 			//-var ob = JSON.parse(message)
 			//a(class="btn-floating btn-large waves-effect waves-light red col s12"  href="#modal1")
 			//	i(class="material-icons") add
-			div(class="row")
-				a(class="modal-trigger waves-effect waves-light btn col s12" href="#modal2") Prześlij plik z wynikami
-			div(class="row")
-				a(class="modal-trigger waves-effect waves-light btn col s12" href="#addStationModal") Dodaj nowe stanowisko pomiarowe
-			div(class="row")
-				a(class="modal-trigger waves-effect waves-light btn col s12" id="addSensorModalBtn" href="#addSensorModal") Dodaj nowy czujnik
-			div(class="row")
-				a(class="modal-trigger waves-effect waves-light btn col s12" href="#addSampleModal") Dodaj wynik pomiaru
+			//- div(class="row")
+			//- 	a(class="modal-trigger waves-effect waves-light btn col s12" href="#modal2") Prześlij plik z wynikami
+			//- div(class="row")
+			//- 	a(class="modal-trigger waves-effect waves-light btn col s12" href="#addStationModal") Dodaj nowe stanowisko pomiarowe
+			//- div(class="row")
+			//- 	a(class="modal-trigger waves-effect waves-light btn col s12" id="addSensorModalBtn" href="#addSensorModal") Dodaj nowy czujnik
+			//- div(class="row")
+			//- 	a(class="modal-trigger waves-effect waves-light btn col s12" href="#addSampleModal") Dodaj wynik pomiaru
 			
 
 			div(class="input-field col s12")
@@ -38,6 +25,16 @@ html
 			div(class="input-field col s12" id="sensorStationDropdownArea")
 				select(id= "sensorsStation")
 					option(value="" disabled selected) Wybierz 
+
+			div(class="input-field col s12" id="stationSampleDropdownArea")
+				select(id= "sensorsSample")
+					option(value="" disabled selected) Wybierz 
+
+			div(class="input-field col s12" id="sampleSensorDrodpdowArea")
+				select(id= "sampleSenorSelect")
+					option(value="" disabled selected) Wybierz 
+
+
 
 
 			div(class="result")
@@ -106,7 +103,9 @@ html
 					div(class="input-field col s12")
 						input(id="addSampleModalValue" type="number" step="any" class="validate")
 						label(for="addSensorModalStationNumber") Wartość
-					
+					 	
+					input(type="time" name="usr_time" step="1")
+					input(type="date" name="bday")
 				div(class="modal-footer")
 					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="addSampleBtn") Dodaj
 
@@ -146,12 +145,4 @@ html
 							input(class="file-path validate" type="text")
 					div(id="importPreview")
 				div(class="modal-footer")
-					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="importFileBtn") Dodaj
-					
-	script
-		include assets/js/script.js
-		include assets/js/stations.js
-		include assets/js/utils.js
-		include assets/js/sensors.js
-
-	
+					a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="importFileBtn") Dodaj	

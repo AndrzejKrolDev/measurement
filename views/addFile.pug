@@ -1,0 +1,12 @@
+extends layout
+block content
+			h4 Dodaj plik
+					
+					div(class="file-field input-field col s12")
+						div(class="btn")
+							span File
+							input(type="file" id="importFileInput" accept=".csv")
+						div(class="file-path-wrapper")
+							input(class="file-path validate" type="text")
+					div(id="importPreview")
+					btn(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat " id="importFileBtn") Dodaj
