@@ -1,17 +1,27 @@
 <div class="row">
-  <form name="signUpForm" action="/auth/signUp" method="post" class="col s12">
-    <div class="row">
-      <div class="input-field col s12">
-        <input name="password" id="password" type="password" class="validate">
-        <label for="password">Password</label>
-      </div>
-    </div>
+
+  <h1><span class="fa fa-sign-in"></span> Rejestracja</h1>
+
+  if message.length > 0
+    <div class="alert alert-danger">#{message}</div>
+
+  <form name="signUpForm" action="signup" method="post" class="col s12">
     <div class="row">
       <div class="input-field col s12">
         <input name="email" id="email" type="email" class="validate">
         <label for="email" data-error="wrong" data-success="right">Email</label>
       </div>
     </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input name="password" id="password" type="password" class="validate">
+        <label for="password">Hasło</label>
+      </div>
+    </div>
     <input type="submit" value="Sign Up">
   </form>
+
+  <hr>
+
+  <p>Masz już konto? <a href="/login">Zaloguj się</a></p>
 </div>

@@ -1,26 +1,14 @@
 var express = require('express');
+var app = express();
 var fs = require("fs");
 var qs = require('querystring');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
+var flash = require('connect-flash');
 
-var app = express();
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
-var authRouter = require('./routes/authRoutes');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(session({ secret: 'measurement', resave: true, saveUninitialized: true }));
-require('./config/passport')(app);
-
-app.use('/views', express.static('views/assets'));
-app.set('view engine', 'pug');
-
-app.use('/Auth', authRouter);
-console.log(authRouter);
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -28,23 +16,20 @@ var connection = mysql.createConnection({
     database: 'measurement_db'
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
+app.use('/views', express.static('views/assets'));
+app.set('view engine', 'pug');
 
-app.get('/', function(req, res) {
-    res.render('index', { title: "Pomiary PK"})
-})
+app.use(session({ secret: 'measurement', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-app.get('/listUsers', function(req, res) {
-    fs.readFile(__dirname + "/" + "users.json", 'utf8', function(err, data) {
-        console.log(data);
-        res.status(200).end(data);
-    });
-})
-
-app.get('/signup', function(req, res) {
-    res.render('login');
-});
-
+require('./app/routes.js')(app, passport);
+require('./config/passport')(passport); // pass passport for configuration
 
 app.get('/sample', function(req, res) {
     var query = require('url').parse(req.url, true).query;
