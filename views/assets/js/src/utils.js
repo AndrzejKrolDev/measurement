@@ -14,17 +14,7 @@
      $(tableSelector).tablesorter();
  }
 
- function addToselect(selectSelector, values) {
-     $(selectSelector + " option").remove();
-     $.each(values, function(key, value) {
-         $(selectSelector)
-             .append($("<option></option>")
-                 .attr("value", value.stationNumber)
-                 .text("Stanowisko nr: " + value.stationNumber + "       Opis: " + value.stationDesc));
-     });
-     $('select').material_select();
- }
-
+ 
 
  function csvToHtmlTable(csvData) {
      var data = csvData;

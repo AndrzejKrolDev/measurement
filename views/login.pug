@@ -10,11 +10,15 @@ html
 	title= title
 	body
 		div.container
-			form(method='POST' action='/login')
+			
 				div.form-group
-					label(for='email') Email
-					input.form-control(type='text' id='email' placeholder='email' name='email')
+					label(for='username') username
+					input.form-control(type='text' id='username' placeholder='username' name='username')
 				div.form-group
 					label(for='password') Password
 					input.form-control(type='password' id='password' placeholder='password' name='password')
-				button.btn.btn-primary(type='submit') Log in 
+				button.btn.btn-primary(id="LogIn") Log in 
+
+
+script
+	include assets/js/src/login.js

@@ -16,7 +16,7 @@
  function validateStationNumber(number) {
      var result = [];
      $.get("/station", function(data) {
-         $.each(data.stations, function(index, value) {
+         $.each(data, function(index, value) {
              var y = value.stationsNumber;
              result[index] = y;
          });

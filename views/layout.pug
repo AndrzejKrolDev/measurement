@@ -1,10 +1,13 @@
 html
 	head
+		//<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="views/js/lib/jquery.js"></script>
 		<script src="views/js/lib/materialize.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.28.5/js/jquery.tablesorter.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
 		<link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
 		<link href="views/css/materialize.css" rel="stylesheet"/>
+		//<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 	title= title
@@ -12,11 +15,11 @@ html
 		ul(id="slide-out" class="side-nav fixed")
 			img(class="responsive-img" src="views/images/pkrakow.jpg")
 			<li><a href="stations">Stanowiska</a></li>
-			<li><a href="addStation">Dodaj stanowsiko</a></li>
+			<li><a href="addStation">Dodaj Stanowsiko</a></li>
 			<li><a href="sensors">Sensory</a></li>
 			<li><a href="addSensor">Dodaj Sensor</a></li>
 			<li><a href="results">Wyniki</a></li>
-			<li><a href="addSensor">Dodaj sensor</a></li>
+			<li><a href="addResults">Dodaj Wynik</a></li>
 			<li><a href="addFile">Dodaj plik</a></li>
 			
 
@@ -29,7 +32,4 @@ html
 
 		script
 			include assets/js/src/script.js
-			include assets/js/src/stations.js
-			include assets/js/src/utils.js
-			include assets/js/src/sensors.js
 			block scripts

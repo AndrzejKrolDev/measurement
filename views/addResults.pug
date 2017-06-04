@@ -7,17 +7,16 @@ block content
 			select(id= "sensorSelect")
 				option(value="" disabled selected) Wybierz 
 	div(class="input-field col s12" )
-			input(id='startDate')
+		input(type= "number" id='sampleValue')
+		label(for="sampleValue") Wartość
+
 	div(class="input-field col s12" )
-			input(id='endDate')
-	a(href="#!" class="waves-effect btn" id="filterBtn") Filtruj
-	a(href="#!" class="waves-effect btn red" id="deleteVisible") Usuń widoczne
-
-
+		input(type= "text" id='sampleDate')
+		label(for="sampleDate") Czas
+	btn(href="#!" class="btn" id="addResultBtn") Dodaj
 
 	
-	div.result
 
 block scripts
 	include assets/js/src/utils.js
-	include assets/js/src/results.js
+	include assets/js/src/addResults.js

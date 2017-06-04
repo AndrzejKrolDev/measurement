@@ -6,10 +6,10 @@ $(document).ready(function() {
     //$("#sampleSensorDrodpdowArea").hide();
   
    
-    hideLoadIndicator();
+ 
 
     $('.button-collapse').sideNav({
-        menuWidth: 200, // Default is 300
+        menuWidth: '20%', // Default is 300
         edge: 'left', // Choose the horizontal origin   
         draggable: true // Choose whether you can drag to open on touch screens
     });
@@ -34,10 +34,7 @@ $(document).ready(function() {
     })
 
 
-    $('#addSampleBtn').click(function() {
-        var body = { stationNumber: $("#addSampleModalStationNumber").val(), sensorNumber: $("#addSampleModalSensorNumber").val(), sampleValue: $("#addSampleModalValue").val(), time: new Date().toISOString().slice(0, 19).replace('T', ' ') };
-        $.post("sample", body);
-    })
+   
 
 
     $('#TableOptionsSelct').on('change', function() {
@@ -62,14 +59,7 @@ $(document).ready(function() {
  
 
 
-    function postPreviewData() {
-        var lines = $("#importpreview table tr");
-        for (i = 1; i < lines.length; i++) {
-            var body = { stationNumber: lines[i].cells[0].innerText, sensorNumber: lines[i].cells[1].innerText, sampleValue: lines[i].cells[4].innerText, time: lines[i].cells[2].innerText + " " + lines[i].cells[3].innerText };
-            $.post("sample", body);
-        }
-        return true;
-    }
+    
 
 
     function tableToJson(table) {
@@ -101,14 +91,7 @@ $(document).ready(function() {
 
 
 
-    $('#importFileBtn').click(function() {
-        alert('');
-    })
-
-    $("#importFileBtn").click(function() {
-        postPreviewData();
-    })
-
+  
 
 
 

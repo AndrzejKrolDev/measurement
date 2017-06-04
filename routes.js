@@ -12,7 +12,7 @@ app.get('/', function(req, res) {
 
 
 app.get('/stations', function(req, res) {
-    res.render('stations', { title: "Stacje" })
+    res.render('stations', { title: "Stanowiska" })
 })
 app.get('/login', function(req, res) {
     res.render('login', { title: "Zaloguj się" })
@@ -32,12 +32,16 @@ app.get('/addSensor', function(req, res) {
 })
 
 
-app.get('/dodajPlik', function(req, res) {
+app.get('/addFile', function(req, res) {
     res.render('addFile', { title: "Dodaj dane z pliku" })
 })
 
 
 app.get('/results', function(req, res) {
-    res.render('results', { title: "Stacje" })
+    res.render('results', { title: "Wyniki" })
+})
+
+app.get('/addResults', function(req, res) {
+    res.render('addResults', { title: "Dodaj wynik" })
 })
 }

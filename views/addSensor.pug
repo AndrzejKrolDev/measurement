@@ -2,7 +2,7 @@ extends layout
 block content	
 	h4 Dodaj czujnik pomiarowy		
 		div(class="input-field col s12")
-			select(id= "StationSelectOnSensorModal")
+			select(id= "sensorStationSelect")
 				option(value="" disabled selected) Wybierz stanowisko 
 
 		div(class="input-field col s12")
@@ -20,4 +20,5 @@ block content
 
 
 block scripts
+	include assets/js/src/utils.js
 	include assets/js/src/addSensor.js
