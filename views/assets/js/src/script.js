@@ -25,10 +25,7 @@ $(document).ready(function() {
         $.post("sensor", body);
     })
 */
-    $("#addSensorModalSensorNumber").keyup(function() {
-        validateSensorNumber($("#StationSelectOnSensorModal").val(), this.value);
-    });
-
+  
     $('#addSensorModalBtn').click(function() {
         getStationNumberAndDescriptionTable()
     })

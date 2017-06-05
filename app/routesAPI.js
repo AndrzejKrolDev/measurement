@@ -1,4 +1,4 @@
-module.exports = function(app, pool, authenticate, cookieParser) {
+module.exports = function(app, pool) {
 
     var qs = require('querystring');
     var mysql = require('mysql');
@@ -33,7 +33,7 @@ module.exports = function(app, pool, authenticate, cookieParser) {
 
 
     //Stations
-    app.get(['/station/:id', '/station'], function(req, res) {
+    app.get(['/station/:id', '/station'], isLoggedIn, function(req, res) {
 
         var sql
         if (req.params.id) {
@@ -48,28 +48,21 @@ module.exports = function(app, pool, authenticate, cookieParser) {
     });
 
     //AddSingleStation
-    app.post('/station', function(req, res) {
-        var body = '';
-        req.on('data', function(data) {
-            body += data;
-        });
-        req.on('end', function() {
-            var data = qs.parse(body);
-            sql = 'INSERT INTO stations SET stationsNumber =' + data.number + ' ,  stationsName= ' + pool.escape(data.name) + ' ,  stationsDesc= ' + pool.escape(data.description);
-            console.log(sql);
-            handle_database(req, res, sql, queryResultsAsJson);
-        });
-    })
+    app.post('/station', isLoggedIn, function(req, res) {
+        sql = 'INSERT INTO stations SET stationsNumber =' + req.body.number + ' ,  stationsName= ' + pool.escape(req.body.name) + ' ,  stationsDesc= ' + pool.escape(req.body.description);
+        handle_database(req, res, sql, queryResultsAsJson);
+    });
+
 
     //Remove Station
-    app.delete('/station/:id', function(req, res) {
+    app.delete('/station/:id', isLoggedIn, function(req, res) {
         sql = "Delete  from stations where stationsNumber = " + pool.escape(req.params.id);
         handle_database(req, res, sql, queryResultsAsJson);
     });
 
 
     //Sensors
-    app.get(['/sensor/:id', '/sensor'], function(req, res) {
+    app.get(['/sensor/:id', '/sensor'], isLoggedIn, function(req, res) {
         var id = req.params.id;
         var query = require('url').parse(req.url, true).query;
         var sql;
@@ -90,23 +83,16 @@ module.exports = function(app, pool, authenticate, cookieParser) {
     })
 
 
-    app.post('/sensor', function(req, res) {
-        var body = '';
-        req.on('data', function(data) {
-            body += data;
-        });
-        var stationId;
-        req.on('end', function() {
-            var data = qs.parse(body);
-            sql = 'insert into sensors (sensorsName,sensorsNumber,sensorsDesc,sensorStationId) select ' +
-                pool.escape(data.name) + ' , ' + pool.escape(data.number) + ' , ' + pool.escape(data.description) + ' , idstations from stations where stationsNumber = ' + pool.escape(data.stationsNumber);
-            console.log(sql);
-            handle_database(req, res, sql, queryResultsAsJson);
+    app.post('/sensor', isLoggedIn, function(req, res) {
+        var sql = 'insert into sensors (sensorsName,sensorsNumber,sensorsDesc,sensorStationId) select ' +
+            pool.escape(req.body.name) + ' , ' + pool.escape(req.body.number) + ' , ' + pool.escape(req.body.description) + ' , idstations from stations where stationsNumber = ' + pool.escape(req.body.stationsNumber);
+        console.log(sql);
+        handle_database(req, res, sql, queryResultsAsJson);
 
-        });
-    })
+    });
 
-    app.delete('/sensor/:id', function(req, res) {
+
+    app.delete('/sensor/:id', isLoggedIn, function(req, res) {
         var query = require('url').parse(req.url, true).query;
         var station = query.station;
         sql = "DELETE FROM sensors se INNER JOIN stations st ON sensorStationId=idstations WHERE sensorsNumber = " + pool.escape(req.params.id) + " AND stationsNumber= " + station;
@@ -117,7 +103,7 @@ module.exports = function(app, pool, authenticate, cookieParser) {
     });
 
     //sample
-    app.get('/sample', function(req, res) {
+    app.get('/sample', isLoggedIn, function(req, res) {
         var query = require('url').parse(req.url, true).query;
 
         var startDate = query.startDate;
@@ -153,7 +139,7 @@ module.exports = function(app, pool, authenticate, cookieParser) {
         handle_database(req, res, sql, queryResultsAsJson);
     })
 
-    app.post('/sample', function(req, res) {
+    app.post('/sample', isLoggedIn, function(req, res) {
         var body = '';
         req.on('data', function(data) {
             body += data;
@@ -168,7 +154,16 @@ module.exports = function(app, pool, authenticate, cookieParser) {
         });
     })
 
-    app.delete('/sample', function(req, res) {
+    app.delete('/sample', isLoggedIn, function(req, res) {
         var sql = 'delete samples FROM samples INNER JOIN sensors ON samples.sampleSensorId = idsensors inner join stations on sensors.sensorStationId = idstations WHERE  stationsNumber = 1 and sensorsNumber = 3';
     })
 }
+
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
+};

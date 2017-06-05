@@ -5,7 +5,7 @@
 
      $('#addStationBtn').click(function() {
          var body = { name: $("#addStationModalStationName").val(), number: $("#addStationModalStationNumber").val(), description: $("#addStationModalStationDescription").val() };
-         $.post("station", body);
+         $.post("/station", body);
          clearAllInputs();
          Materialize.toast('Stanowisko dodane', 4000);
      })

@@ -1,3 +1,4 @@
+block variables
 html
 	head
 		//<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,13 +15,16 @@ html
 	body
 		ul(id="slide-out" class="side-nav fixed")
 			img(class="responsive-img" src="views/images/pkrakow.jpg")
-			<li><a href="stations">Stanowiska</a></li>
-			<li><a href="addStation">Dodaj Stanowsiko</a></li>
-			<li><a href="sensors">Sensory</a></li>
-			<li><a href="addSensor">Dodaj Sensor</a></li>
-			<li><a href="results">Wyniki</a></li>
-			<li><a href="addResults">Dodaj Wynik</a></li>
-			<li><a href="addFile">Dodaj plik</a></li>
+			<li><a href="/logout" class="blue lighten-1">Wyloguj się</a></li>
+			<li> </li>
+			<li><a href="/stations">Stanowiska</a></li>
+			<li><a href="/sensors">Sensory</a></li>
+			<li><a href="/results">Wyniki</a></li>
+			if isAdmin
+				<li><a href="/admin/addStation">Dodaj Stanowsiko</a></li>
+				<li><a href="/admin/addSensor">Dodaj Sensor</a></li>
+				<li><a href="/admin/addResults">Dodaj Wynik</a></li>
+				<li><a href="/admin/addFile">Dodaj plik</a></li>
 			
 
 		<a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
