@@ -116,7 +116,7 @@ module.exports = function(app, pool) {
         var lastIndex = query.lastIndex;
         if (!firstIndex) { firstIndex = 0; }
         if (!lastIndex) { lastIndex = 1000; }
-        var sql = 'SELECT sampleDate,sampleValue ,sensorsNumber,stationsNumber ' +
+        var sql = 'SELECT idsamples, sampleDate,sampleValue ,sensorsNumber,stationsNumber ' +
             'FROM samples ' +
             'INNER JOIN sensors ' +
             'ON sensors.idsensors =sampleSensorId ' +
@@ -154,8 +154,9 @@ module.exports = function(app, pool) {
         });
     })
 
-    app.delete('/sample', isLoggedIn, function(req, res) {
-        var sql = 'delete samples FROM samples INNER JOIN sensors ON samples.sampleSensorId = idsensors inner join stations on sensors.sensorStationId = idstations WHERE  stationsNumber = 1 and sensorsNumber = 3';
+    app.delete('/sample/:id', isLoggedIn, function(req, res) {
+        var sql = 'delete samples FROM samples where idsamples = ' + pool.escape(req.params.id);
+        handle_database(req, res, sql, queryResultsAsJson);
     })
 }
 
